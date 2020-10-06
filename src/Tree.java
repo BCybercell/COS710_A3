@@ -1,9 +1,11 @@
 import java.util.Arrays;
 
 public class Tree {
-    Tree(int type, int _maxDepth, Toolkit _tk){
+    Tree(int type, int _maxDepth, Toolkit _tk /*, int _maxCalls, int numFunctionTrees*/){
         maxDepth = _maxDepth;
         tk = _tk;
+        numCalls = 0;
+        //maxCalls = _maxCalls;
         rawFitness = 0.0;
         standardizedFitness = 0.0;
         adjustedFitness = 0.0;
@@ -185,6 +187,5 @@ public class Tree {
     int maxDepth;
     Toolkit tk;
     double rawFitness, standardizedFitness,adjustedFitness, normalizedFitness, accuracy;
-    int hitsRatio;
-    int nodeNumberStorage;
+    int hitsRatio, nodeNumberStorage, numCalls, maxCalls;
 }

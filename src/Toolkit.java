@@ -94,25 +94,31 @@ public class Toolkit {
         return -1;
     }
 
-    String getRandomTerminal(){
-        double r = rand.nextDouble();
-        if (r <0.333){
-            return terminalSet[0];
-        }
-        else if (r <0.667){
-            return terminalSet[1];
-        }
-        else {
-            return terminalSet[2];
-        }
+    void setTerminals(){
+
     }
 
+    String getRandomTerminal(){
+        double r = rand.nextDouble();
+        int len = terminalSetBase.length;
+        for (int i = 0; i < len; i++) {
+
+            if (r <((1/ (double) len)*(i+1))){
+
+                return terminalSetBase[i];
+            }
+        }
+        return terminalSetBase[len-1];
+
+    }
+
+    //DONE
     List<String[]> readDataFile(String path){
         List<String[]> toReturn = new ArrayList<String[]>();
         try {
             String row;
             BufferedReader fileReader = new BufferedReader(new FileReader(path));
-            //row = fileReader.readLine(); //First line. Headings
+
             while ((row = fileReader.readLine()) != null) {
                 String[] data = row.split(",");
                 int len = data.length;
@@ -130,6 +136,7 @@ public class Toolkit {
 
     }
 
+    //DONE
     List<String[]> fixClassImbalance(List<String[]> oldData){
         /*
         * Makes sure that each class has at least 80 elements and no more than 100, fixes class imbalance
@@ -142,24 +149,17 @@ public class Toolkit {
         int count = 0;
         for (String [] el: oldData) {
             ++count;
-            //System.out.println(++count + " " + el[8]);
+
             toReturn.add(el);
 
-            if (el[8].equals("I")){
-                numberDecision[0] = numberDecision[0]+1;
-            }
-            else if (el[8].equals("S")){
-                numberDecision[1] = numberDecision[1]+1;
-            }
-            else if (el[8].equals("A")){
-                numberDecision[2] = numberDecision[2]+1;
-            }
-            else {
-                System.out.println(el[8] +" " + count);
+            switch (el[8]) {
+                case "I" -> numberDecision[0] = numberDecision[0] + 1;
+                case "S" -> numberDecision[1] = numberDecision[1] + 1;
+                case "A" -> numberDecision[2] = numberDecision[2] + 1;
+                default -> System.out.println(el[8] + " " + count);
             }
         }
-//        System.out.println(numberDecision[0] + " "+ numberDecision[1] + " " + numberDecision[2]);
-//        System.out.println(toReturn.size());
+
         while (numberDecision[0] < 80 ||numberDecision[1] < 80 || numberDecision[2] < 80){
 
             int len = toReturn.size();
@@ -178,11 +178,11 @@ public class Toolkit {
                 toReturn.add(el);
             }
         }
-//        System.out.println(numberDecision[0] + " "+ numberDecision[1] + " " + numberDecision[2]);
-//        System.out.println(toReturn.size());
+
         return toReturn;
     }
 
+    //DONE
     List<List<String[]>> splitData(List<String []> data){
         List<String[]> train= new ArrayList<String[]>();
         List<String[]> test= new ArrayList<String[]>();
@@ -205,8 +205,9 @@ public class Toolkit {
 
     int[] popSize = {50, 100, 150};
     int[] tourSize = {2, 4, 6, 8};
+    List<List<String>> terminalSet;
     String[] functionSet = {"L-CORE", "L-SURF", "L-O2", "L-BP", "SURF-STBL", "CORE-STBL", "BP-STBL", "COMFORT"} ;
     Integer[] arity ={3, 3, 4, 3, 3, 3, 3, 21};
-    String[] terminalSet = {"I", "S", "A"};
+    String[] terminalSetBase = {"I", "S", "A"};
     Random rand;
 }

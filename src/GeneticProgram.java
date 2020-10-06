@@ -11,9 +11,9 @@ public class GeneticProgram extends Thread{
         tk = toolkit;
         population=new ArrayList<Tree>();
 //        tournamentSize = tk.getTourSize();
-        tournamentSize = 6; //
+        tournamentSize = 6; // Carried over from A2
 //        populationSize = tk.getPopSize();
-        populationSize = 50; //
+        populationSize = 50; // Carried over from A2
     }
     void createInitialPopulation(double _ratio){
         // Param for ratio?
@@ -39,12 +39,12 @@ public class GeneticProgram extends Thread{
         try {
             long startTime = System.nanoTime();
 
-            //ratio = tk.rand.nextDouble();
-            ratio = 0.00; // Full tree causing issues
-            maxTreeDepth = 15;
-            initialTreeDepth = 6;
+
+            ratio = 0.00; // Carried over from A2
+            maxTreeDepth = 15; // Carried over from A2
+            initialTreeDepth = 6; // Carried over from A2
             createInitialPopulation(ratio);
-            //data/time_series_covid_19_confirmed.csv
+
             List<String[]> data = tk.readDataFile("post-operative.data");
             List<String[]> dataFixed = tk.fixClassImbalance(data);
             List<List<String[]>> allData = tk.splitData(dataFixed);
@@ -76,7 +76,7 @@ public class GeneticProgram extends Thread{
             int numGen = 10000;
             for (int i = 0; i < numGen; i++) {
 
-                if (i % 200 == 0) {
+                if (i % 200 == 0 && i!=0) { // Removes redundant 0 case
                     System.out.println("Gen " + i + " best accuracy: " + tmpAccForPrint);
                 }
                 double sumAdjFit = 0.0;
@@ -103,9 +103,6 @@ public class GeneticProgram extends Thread{
                     double acc = correct / total;
                     rawFitness = total - correct;
 
-//                    if (Double.isNaN(rawFitness) || rawFitness > 1.0E15){
-//                        rawFitness = 1.0E15;
-//                    }
                     rawFitness += t.getNumNodes(); // adds this to influence tree depth/ number on nodes
                     t.rawFitness = rawFitness;
                     t.standardizedFitness = rawFitness;
@@ -153,7 +150,7 @@ public class GeneticProgram extends Thread{
                 }
 
                 for (int j = 0; j < populationSize * 0.5; j++) {
-                    // TODO maybe modify?   :: Should be fine???
+
                     double rand = tk.rand.nextDouble();
                     if (rand < 0.1) { // 10% range
                         creation();
@@ -291,14 +288,14 @@ public class GeneticProgram extends Thread{
     }
 
     int tournamentSelectionReplace(){
-        List<Tree> tour = new ArrayList<Tree>();
+        //List<Tree> tour = new ArrayList<Tree>();
         double lowestNorFitness = Double.MAX_VALUE;
         int lowest = Integer.MAX_VALUE;
         for (int i = 0; i <tournamentSize ; i++) {
             int rand = tk.rand.nextInt(populationSize-1);
             if (rand < population.size()){
                 Tree randTree = population.get(rand);
-                tour.add(randTree);
+                //tour.add(randTree);
                 if (randTree.normalizedFitness < lowestNorFitness){
                     lowestNorFitness = randTree.normalizedFitness;
                     lowest = rand;
