@@ -1,8 +1,6 @@
-import java.awt.geom.Arc2D;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class GeneticProgram extends Thread{
     GeneticProgram(Toolkit toolkit, long _seed){
@@ -16,16 +14,14 @@ public class GeneticProgram extends Thread{
         populationSize = 50; // Carried over from A2
     }
     void createInitialPopulation(double _ratio){
-        // Param for ratio?
-        // Param for max depth
-        //System.out.println(populationSize);
+
         for (int i = 0; i < populationSize; i++) { // populationSize
             if (tk.rand.nextDouble() > _ratio){
-                population.add(new Tree(1, initialTreeDepth, tk));
+                population.add(new Tree(1, initialTreeDepth, tk, maxCalls, numFunctionTrees));
 
             }
             else {
-                population.add(new Tree(0, initialTreeDepth, tk));
+                population.add(new Tree(0, initialTreeDepth, tk, maxCalls, numFunctionTrees));
                 //System.out.println("Final " + population.get(i).getTreeValue());
             }
 
@@ -43,7 +39,10 @@ public class GeneticProgram extends Thread{
             ratio = 0.00; // Carried over from A2
             maxTreeDepth = 15; // Carried over from A2
             initialTreeDepth = 6; // Carried over from A2
+            maxCalls = 3; //TODO tune { 3, 5 , 10, 15, 30}
+            numFunctionTrees = 1 ; // TODO tune { 1, 3, 5 }
             createInitialPopulation(ratio);
+   //         System.out.println("Here");
 
             List<String[]> data = tk.readDataFile("post-operative.data");
             List<String[]> dataFixed = tk.fixClassImbalance(data);
@@ -77,18 +76,21 @@ public class GeneticProgram extends Thread{
             for (int i = 0; i < numGen; i++) {
 
                 if (i % 200 == 0 && i!=0) { // Removes redundant 0 case
+//                if (i % 1 == 0 && i!=0) { // Removes redundant 0 case
                     System.out.println("Gen " + i + " best accuracy: " + tmpAccForPrint);
                 }
                 double sumAdjFit = 0.0;
 
                 for (Tree t : population
                 ) {
+                   // int Debugp = 0;
+                    //System.out.println(Debugp++);
                     int correct = 0;
                     double total = 0.0;
                     double rawFitness = 0.0;
                     for (String[] obj : train
                     ) {
-
+                        //System.out.println(Debugp++);
                         String temp = t.getTreeValue(obj);
                         if (temp.equals(obj[8])) {
                             rawFitness += 1;
@@ -111,7 +113,7 @@ public class GeneticProgram extends Thread{
                     sumAdjFit += adjustedFitness;
                     t.hitsRatio = correct;
                     t.accuracy = acc;
-                    if (correct >= (total - (total * 0.20))) { // TODO check in the next 100 runs (Tune between 80,85,90,95)
+                    if (correct >= (total - (total * 0.15))) { // TODO check in the next 100 runs (Tune between 80,85,90,95)
                         System.out.println("Early stop");
                         numGen = -1;
                         break;
@@ -347,22 +349,23 @@ public class GeneticProgram extends Thread{
 
     }
     void crossover(){
-
+        int randSubTree = tk.rand.nextInt(numFunctionTrees+1);
         Tree toReproduce1 = tournamentSelection();
-        int numNodes = toReproduce1.getNumNodes();
+        int numNodes = toReproduce1.getNumNodes(randSubTree);
         int rand1 = tk.rand.nextInt(numNodes);
-        Node subtree1 = toReproduce1.getSubtree(rand1);
+
+        Node subtree1 = toReproduce1.getSubtree(rand1,randSubTree);
 
         Tree toReproduce2 = tournamentSelection();
-        numNodes = toReproduce2.getNumNodes();
+        numNodes = toReproduce2.getNumNodes(randSubTree);
         int rand2 = tk.rand.nextInt(numNodes);
-        Node subtree2 = toReproduce2.getSubtree(rand2);
+        Node subtree2 = toReproduce2.getSubtree(rand2,randSubTree);
 
         Tree clone1 = toReproduce1.clone();
-        clone1.setSubtree(rand1, subtree2);
+        clone1.setSubtree(rand1, subtree2, randSubTree);
 
         Tree clone2 = toReproduce1.clone();
-        clone2.setSubtree(rand2, subtree1);
+        clone2.setSubtree(rand2, subtree1, randSubTree);
 
         int toReplace = tournamentSelectionReplace();
         if (clone1.getDepth() < maxTreeDepth){
@@ -377,13 +380,14 @@ public class GeneticProgram extends Thread{
 
     }
     void mutation(){
-
+        int randSubTree = tk.rand.nextInt(numFunctionTrees+1);
         Tree toMutate = tournamentSelection();
-        int numNodes = toMutate.getNumNodes();
+        int numNodes = toMutate.getNumNodes(randSubTree);
         int rand = tk.rand.nextInt(numNodes);
-        Tree newSubTree = new Tree(1, initialTreeDepth, tk);
+
+        Tree newSubTree = new Tree(1, initialTreeDepth, tk, maxCalls, numFunctionTrees);
         Tree clone = toMutate.clone();
-        clone.setSubtree(rand, newSubTree.root);
+        clone.setSubtree(rand, newSubTree.root.get(randSubTree), randSubTree);
         int toReplace = tournamentSelectionReplace();
         //System.out.println(clone.getNumNodes()+" "+toMutate.getNumNodes());
         if (clone.getDepth() < maxTreeDepth){
@@ -396,22 +400,20 @@ public class GeneticProgram extends Thread{
 
 
         if (tk.rand.nextDouble() > ratio){
-            population.set(toReplace, new Tree(1, initialTreeDepth, tk));
+            population.set(toReplace, new Tree(1, initialTreeDepth, tk, maxCalls, numFunctionTrees));
 
         }
         else {
-            population.set(toReplace, new Tree(0, initialTreeDepth, tk));
+            population.set(toReplace, new Tree(0, initialTreeDepth, tk, maxCalls, numFunctionTrees));
             //System.out.println("Final " + population.get(i).getTreeValue());
         }
     }
 
     Toolkit tk;
-    int tournamentSize;
-    int populationSize;
-    int initialTreeDepth;
-    int maxTreeDepth;
+    int tournamentSize, populationSize, initialTreeDepth, maxTreeDepth, maxCalls, numFunctionTrees;
     long seed;
     double ratio;
     List<Tree> population;
+
 
 }

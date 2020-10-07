@@ -1,16 +1,20 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Tree {
-    Tree(int type, int _maxDepth, Toolkit _tk /*, int _maxCalls, int numFunctionTrees*/){
+    Tree(int type, int _maxDepth, Toolkit _tk , int _maxCalls, int _numFunctionTrees){
         maxDepth = _maxDepth;
         tk = _tk;
         numCalls = 0;
-        //maxCalls = _maxCalls;
+        maxCalls = _maxCalls;
+        numFunctionTrees = _numFunctionTrees;
         rawFitness = 0.0;
         standardizedFitness = 0.0;
         adjustedFitness = 0.0;
         normalizedFitness = 0.10; // set to 0.10 so that new children don't get replaced as easily
         hitsRatio = 0;
+        root = new ArrayList<>();
 
         if (type == 0){
             // Full
@@ -23,11 +27,17 @@ public class Tree {
             //System.out.println("Grow Tree created.");
         }
     }
+
     public Tree clone(){
-        Tree toReturn = new Tree(1,maxDepth,tk);
-        Node r = new FunctionNode(root.sValue);
-        toReturn.root = r;
-        cloneRecursive(r, root);
+        Tree toReturn = new Tree(1, maxDepth ,tk, maxCalls, numFunctionTrees );
+        int count = 0;
+        for (Node r:root
+             ) {
+            Node newRoot = new FunctionNode(r.sValue);
+            toReturn.root.set(count++, newRoot);
+            cloneRecursive(newRoot, r);
+        }
+
         return toReturn;
     }
     void cloneRecursive(Node n, Node thisTree){
@@ -47,49 +57,62 @@ public class Tree {
         }
     }
     void Grow(){
-        String f = tk.getRandomFunction();
-        root = new FunctionNode(f);
-        int currHeight = 0;
-        AddNodesRandom(root, currHeight);
+
+        for (int i = -1; i < numFunctionTrees; i++) { // -1 is for the main
+            String f = tk.getRandomFunction();
+            root.add(new FunctionNode(f)); //main?
+            int currHeight = 0;
+            boolean isMain = false;
+            if (i == -1){
+                isMain = true;
+            }
+            AddNodesRandom(root.get(i+1), currHeight, isMain);
+        }
+
+
     }
 
     void Full(){
-        String f = tk.getRandomFunction();
-        root = new FunctionNode(f);
-        int currHeight = 1; // modified to reduce heap overflow?
-        AddNodesFull(root, currHeight);
+        for (int i = -1; i < numFunctionTrees; i++) { // -1 is for the main
+            String f = tk.getRandomFunction();
+            root.add(new FunctionNode(f)); //main?
+            int currHeight = 1; // modified to reduce heap overflow?
+
+            AddNodesFull(root.get(i+1), currHeight, false); //Does not matter since full is not used
+        }
+
     }
-    void AddNodesRandom(Node node, int currentDepth){
+    void AddNodesRandom(Node node, int currentDepth, boolean isMain){
         if (Arrays.asList(tk.functionSet).contains(node.sValue) ){
             int numChildren = tk.getArity(node.sValue);
            // System.out.println(node.sValue + " "+ numChildren);
             for (int i = 0; i < numChildren; i++) {
                 if (tk.rand.nextDouble()>0.5 || currentDepth >= maxDepth){
-                    node.children.add(new TerminalNode(tk.getRandomTerminal()));
+                    node.children.add(new TerminalNode(tk.getRandomTerminal(isMain, numFunctionTrees)));
                 }
                 else{
                     Node tmp = new FunctionNode(tk.getRandomFunction());
                     node.children.add(tmp);
-                    AddNodesRandom(tmp, currentDepth + 1);
+                    AddNodesRandom(tmp, currentDepth + 1, isMain);
                 }
             }
 
         }
     }
 
-    void AddNodesFull(Node node, int currentDepth){
+    void AddNodesFull(Node node, int currentDepth, boolean isMain){
         if (Arrays.asList(tk.functionSet).contains(node.sValue) ){
             int numChildren = tk.getArity(node.sValue);
             //System.out.println(node.sValue + " "+ numChildren);
 
             for (int i = 0; i < numChildren; i++) {
                 if (currentDepth >= maxDepth) {
-                    node.children.add(new TerminalNode(tk.getRandomTerminal()));
+                    node.children.add(new TerminalNode(tk.getRandomTerminal(isMain, numFunctionTrees)));
                 } else {
                     Node tmp = new FunctionNode(tk.getRandomFunction());
                     node.children.add(tmp);
                     //System.out.println(tmp.sValue);
-                    AddNodesFull(tmp, currentDepth + 1);
+                    AddNodesFull(tmp, currentDepth + 1, isMain);
                 }
             }
 
@@ -98,13 +121,24 @@ public class Tree {
 
     String getTreeValue(String [] obj)
     {
-        return root.getValue(obj, tk);
+        return root.get(0).getValue(obj, tk, root, numCalls, maxCalls);
 
     }
 
     int getNumNodes(){
-        return getNumNodesRecursive(root);
+        int total = 0;
+        for (Node r:root
+             ) {
+            total += getNumNodesRecursive(r);
+        }
+        return total;
     }
+
+    int getNumNodes(int randSubTree){
+
+        return getNumNodesRecursive(root.get(randSubTree));
+    }
+
     int getNumNodesRecursive(Node n){
         if (n.children.size() == 0){
             return 1;
@@ -116,12 +150,13 @@ public class Tree {
         }
         return tmp;
     }
-    Node getSubtree(int nodeNum){
+   // TODO: adding tree index keeps tree typing. Since no ARG present no node typing needed
+    Node getSubtree(int nodeNum, int treeIndex){ //Tree index for selecting main of function
         nodeNumberStorage = -1;
         if (nodeNum != 0){
-            return getSubtreeRecursive(root,nodeNum);
+            return getSubtreeRecursive(root.get(treeIndex),nodeNum);
         }
-        else return root;
+        else return root.get(treeIndex);
     }
     Node getSubtreeRecursive(Node n,int nodeNum){
         nodeNumberStorage++;
@@ -138,22 +173,24 @@ public class Tree {
         return null;
     }
 
-    void setSubtree(int nodeNum, Node newSubTree){
+    void setSubtree(int nodeNum, Node newSubTree, int treeIndex){
+        Node tempRoot = root.get(treeIndex);
         nodeNumberStorage = -1;
         if (nodeNum != 0){
             nodeNumberStorage++;
-            for (Node child:root.children
+            for (Node child:tempRoot.children
             ) {
                 boolean tmp = setSubtreeRecursive(child, nodeNum, newSubTree);
-                if (tmp == true){
-                    root.children.set(root.children.indexOf(child), newSubTree);
+                if (tmp){
+                    tempRoot.children.set(tempRoot.children.indexOf(child), newSubTree);
                 }
             }
         }
         else {
-            root = newSubTree;
+            root.set(treeIndex, newSubTree);
         }
     }
+
     boolean setSubtreeRecursive(Node n,int nodeNum,Node newSubTree){
         nodeNumberStorage++;
         if (nodeNumberStorage == nodeNum){
@@ -162,15 +199,25 @@ public class Tree {
         for (Node child:n.children
         ) {
             boolean tmp = setSubtreeRecursive(child, nodeNum, newSubTree);
-            if (tmp == true){
+            if (tmp){
                 n.children.set(n.children.indexOf(child), newSubTree);
             }
         }
         return false;
     }
+
     int getDepth(){
-        return getDepthRecursive(root);
+        int highest = 0;
+        for (Node r: root
+             ) {
+            int temp = getDepthRecursive(r);
+            if (temp > highest){
+                highest = temp;
+            }
+        }
+        return highest;
     }
+
     int getDepthRecursive(Node n){
         int highest = 0;
         for (Node c: n.children
@@ -183,9 +230,9 @@ public class Tree {
         return highest+1;
     }
 
-    Node root;
+    List<Node> root;
     int maxDepth;
     Toolkit tk;
     double rawFitness, standardizedFitness,adjustedFitness, normalizedFitness, accuracy;
-    int hitsRatio, nodeNumberStorage, numCalls, maxCalls;
+    int hitsRatio, nodeNumberStorage, numCalls, maxCalls, numFunctionTrees;
 }

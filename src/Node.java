@@ -9,7 +9,7 @@ public class Node {
     String sValue;
     List<Node> children;
 
-    public String getValue(String [] obj, Toolkit tk)
+    public String getValue(String[] obj, Toolkit tk, List<Node> roots, int numCalls, int maxCalls)
     {
         return sValue;
     }

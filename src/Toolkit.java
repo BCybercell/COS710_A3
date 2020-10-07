@@ -98,9 +98,13 @@ public class Toolkit {
 
     }
 
-    String getRandomTerminal(){
+    String getRandomTerminal(boolean isMain, int numFunctionTrees){ // TODO tune main being on/off
         double r = rand.nextDouble();
-        int len = terminalSetBase.length;
+//        int len = terminalSetBase.length;
+        int len = 3 + numFunctionTrees;
+        if (!isMain){
+            len = 3;
+        }
         for (int i = 0; i < len; i++) {
 
             if (r <((1/ (double) len)*(i+1))){
@@ -208,6 +212,7 @@ public class Toolkit {
     List<List<String>> terminalSet;
     String[] functionSet = {"L-CORE", "L-SURF", "L-O2", "L-BP", "SURF-STBL", "CORE-STBL", "BP-STBL", "COMFORT"} ;
     Integer[] arity ={3, 3, 4, 3, 3, 3, 3, 21};
-    String[] terminalSetBase = {"I", "S", "A"};
+//    String[] terminalSetBase = {"I", "S", "A"};
+    String[] terminalSetBase = {"I", "S", "A", "Func1", "Func2", "Func3", "Func4", "Func5"};
     Random rand;
 }
