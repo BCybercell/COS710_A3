@@ -328,16 +328,35 @@ public class FunctionNode extends Node {
                     case "20":
                         return children.get(20).getValue(obj, tk, roots, numCalls, maxCalls);
                     default:
-                        Integer [] numberDecision = {0, 0, 0}; // I, S, A
+                        Integer [] numberDecision = {0, 0, 0, 0}; // I, S, A, F
                         for (int i = 0; i < 21; i++) {
                             String temp = children.get(i).getValue(obj, tk, roots, numCalls, maxCalls);
                             switch (temp) {
                                 case "I" -> numberDecision[0] = numberDecision[0] + 1;
                                 case "S" -> numberDecision[1] = numberDecision[1] + 1;
                                 case "A" -> numberDecision[2] = numberDecision[2] + 1;
+                                case "F" -> numberDecision[3] = numberDecision[3] + 1;
+
+                            }
+                            if (numCalls>2){ //FORCE THIS TO QUIT. TAKES TOO LONG IN LOOP
+                                return "F";
+                            }
+                            //ADDED for speedup of code
+                            if (numberDecision[3] > 11){
+                                return "F";
+                            }
+                            if (numberDecision[2] > 11){
+                                return "A";
+                            }
+                            if (numberDecision[1] > 11){
+                                return "S";
+                            }
+                            if (numberDecision[0] > 11){
+                                return "I";
                             }
 
                         }
+
                         if (numberDecision[0] >= numberDecision[1]){
                             if (numberDecision[0] >= numberDecision[2]){
                                 return "I";

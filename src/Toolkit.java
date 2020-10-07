@@ -102,9 +102,9 @@ public class Toolkit {
         double r = rand.nextDouble();
 //        int len = terminalSetBase.length;
         int len = 3 + numFunctionTrees;
-        if (!isMain){
-            len = 3;
-        }
+//        if (!isMain){
+//            len = 3;
+//        }
         for (int i = 0; i < len; i++) {
 
             if (r <((1/ (double) len)*(i+1))){

@@ -75,22 +75,30 @@ public class GeneticProgram extends Thread{
             int numGen = 10000;
             for (int i = 0; i < numGen; i++) {
 
-                if (i % 200 == 0 && i!=0) { // Removes redundant 0 case
-//                if (i % 1 == 0 && i!=0) { // Removes redundant 0 case
+//                if (i % 200 == 0 && i!=0) { // Removes redundant 0 case
+                if (i % 50 == 0 && i!=0) { // If isMain is off. Slower to run code
                     System.out.println("Gen " + i + " best accuracy: " + tmpAccForPrint);
                 }
                 double sumAdjFit = 0.0;
-
+               // int treeCount = 0;
                 for (Tree t : population
                 ) {
                    // int Debugp = 0;
-                    //System.out.println(Debugp++);
+                    //System.out.println("Tree: " + treeCount++);
                     int correct = 0;
+                    int failure = 0;
                     double total = 0.0;
                     double rawFitness = 0.0;
+                    //int trainCount = 0;
                     for (String[] obj : train
                     ) {
-                        //System.out.println(Debugp++);
+//                        if (treeCount==10){
+//                            System.out.println(trainCount++);
+//                            if (trainCount == 45){
+//                                System.out.println("Debug here");
+//                            }
+//                        }
+
                         String temp = t.getTreeValue(obj);
                         if (temp.equals(obj[8])) {
                             rawFitness += 1;
@@ -98,10 +106,14 @@ public class GeneticProgram extends Thread{
                             correct++;
 
                         }
+                        else if (temp.equals("F")){
+                            failure++;
+                        }
 
                         total++;
 
                     }
+                    //System.out.println("Failures: " + failure);
                     double acc = correct / total;
                     rawFitness = total - correct;
 
@@ -119,10 +131,12 @@ public class GeneticProgram extends Thread{
                         break;
                     }
                 }
+                //System.out.println("Here 0");
                 for (Tree t : population
                 ) {
                     t.normalizedFitness = t.adjustedFitness / sumAdjFit;
                 }
+                //System.out.println("Here 1");
                 Tree fittest = getFittest();
                 if (fittest != null) {
                     csvWriter.append(Integer.toString(i)); // Gen
@@ -150,7 +164,7 @@ public class GeneticProgram extends Thread{
                 } else {
                     System.out.println("Error in fittest");
                 }
-
+                //System.out.println("Here 2");
                 for (int j = 0; j < populationSize * 0.5; j++) {
 
                     double rand = tk.rand.nextDouble();
@@ -166,6 +180,7 @@ public class GeneticProgram extends Thread{
 
 
                 }
+                //System.out.println("Here 3");
                 //System.out.println("Gen " + i);
                 //System.out.println("Fittest Hits Ratio: " + fittest.hitsRatio);
 //                    System.out.println("Fittest Raw Fitness: " + fittest.rawFitness);

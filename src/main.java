@@ -8,6 +8,7 @@ public class main {
     public static void main(String[] args) throws FileNotFoundException {
 
         long seed = System.currentTimeMillis();
+//        long seed = 1602089526487L;
         System.out.println("[*] Seed: " + seed);
         Toolkit globalTk = new Toolkit(seed);
 /*

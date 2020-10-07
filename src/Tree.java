@@ -121,7 +121,7 @@ public class Tree {
 
     String getTreeValue(String [] obj)
     {
-        return root.get(0).getValue(obj, tk, root, numCalls, maxCalls);
+        return root.get(0).getValue(obj, tk, root, 0, maxCalls);
 
     }
 
