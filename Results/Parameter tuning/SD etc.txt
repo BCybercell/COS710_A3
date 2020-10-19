@@ -1,0 +1,290 @@
+"C:\Program Files\Java\jdk-14.0.2\bin\java.exe" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.2.1\lib\idea_rt.jar=56228:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.2.1\bin" -Dfile.encoding=UTF-8 -classpath "C:\2020\COS 710\formatting\out\production\formatting" main
+=============================================================
+Run 1
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 82.75862068965517 & 74.16459313927471 & 4.732382304893392 \\
+5000 & 83.53909465020575 & 77.02681102100398 & 3.8695126644691906 \\
+7500 & 82.00836820083683 & 77.31610289096875 & 2.9704775977755595 \\
+10000 & 80.89430894308943 & 77.68044376001001 & 2.597317793631773 \\
+Testing data set & 88.37209302325581 & 67.10648005241333 & 16.0139686022569 \\\hline
+\end{tabular}}
+\caption{Results for run 1}
+\end{table}
+=============================================================
+Run 2
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 80.65843621399176 & 72.23954742536607 & 5.447853395322637 \\
+5000 & 81.38528138528139 & 74.2301371439177 & 6.028145762254178 \\
+7500 & 82.52032520325203 & 75.54979673497046 & 6.499258674838806 \\
+10000 & 82.62711864406779 & 75.75333328220994 & 6.720584806096063 \\
+Testing data set & 84.78260869565217 & 68.80764720151487 & 10.232435383875815 \\\hline
+\end{tabular}}
+\caption{Results for run 2}
+\end{table}
+=============================================================
+Run 3
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 80.3347280334728 & 67.60252067777837 & 8.077556421349964 \\
+5000 & 80.3347280334728 & 69.87970983103817 & 6.891234289930594 \\
+7500 & 79.39914163090128 & 71.33767194734935 & 6.990745085047764 \\
+10000 & 81.70212765957446 & 72.71601517492691 & 6.417272186140352 \\
+Testing data set & 87.5 & 67.82013455899842 & 10.13312307133398 \\\hline
+\end{tabular}}
+\caption{Results for run 3}
+\end{table}
+=============================================================
+Run 4
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 81.89655172413794 & 75.2490788239166 & 3.1392301658569846 \\
+5000 & 82.53275109170306 & 77.31171008818463 & 2.9679946757479017 \\
+7500 & 82.53275109170306 & 78.10487683168162 & 2.637730277464778 \\
+10000 & 81.38528138528139 & 77.92968115582852 & 2.2653985633954377 \\
+Testing data set & 90.69767441860465 & 73.20787488276456 & 10.859339034689539 \\\hline
+\end{tabular}}
+\caption{Results for run 4}
+\end{table}
+=============================================================
+Run 5
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 77.92207792207793 & 66.77382301274037 & 5.878301401347809 \\
+5000 & 83.54978354978356 & 69.59880049896988 & 5.372090979368471 \\
+7500 & 77.31092436974791 & 69.84244007392142 & 4.3982230885461 \\
+10000 & 80.16877637130801 & 72.00411121711404 & 4.8850187783195205 \\
+Testing data set & 76.74418604651163 & 63.86434507826246 & 10.6291689682213 \\\hline
+\end{tabular}}
+\caption{Results for run 5}
+\end{table}
+=============================================================
+Run 6
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 77.63713080168776 & 65.83077122535201 & 6.188107363349214 \\
+5000 & 77.63713080168776 & 67.3064714895958 & 6.0548086973089985 \\
+7500 & 80.16877637130801 & 68.68439627308058 & 6.099259604433521 \\
+10000 & 80.16877637130801 & 70.41265082622317 & 5.260264122808668 \\
+Testing data set & 85.36585365853658 & 64.9882431196424 & 12.79285471182667 \\\hline
+\end{tabular}}
+\caption{Results for run 6}
+\end{table}
+=============================================================
+Run 7
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 81.81818181818183 & 74.99835000128195 & 3.919066856256824 \\
+5000 & 81.81818181818183 & 77.6273357705105 & 3.2503108249646195 \\
+7500 & 82.6086956521739 & 77.56921540422206 & 3.1442406539700687 \\
+10000 & 82.6086956521739 & 78.07426007305783 & 3.008500732143748 \\
+Testing data set & 90.47619047619048 & 68.782316645263 & 13.563650987372267 \\\hline
+\end{tabular}}
+\caption{Results for run 7}
+\end{table}
+=============================================================
+Run 8
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 80.08474576271186 & 74.14089680771025 & 3.4859451509987296 \\
+5000 & 80.50847457627118 & 75.93978801861023 & 3.595954368202441 \\
+7500 & 82.62711864406779 & 76.67328372660351 & 3.6911114698164424 \\
+10000 & 82.62711864406779 & 77.83918835654573 & 3.767987699178079 \\
+Testing data set & 82.92682926829268 & 64.85391793770147 & 13.71424691216292 \\\hline
+\end{tabular}}
+\caption{Results for run 8}
+\end{table}
+=============================================================
+Run 9
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 79.39914163090128 & 72.24020537558803 & 4.36153294955482 \\
+5000 & 83.33333333333334 & 74.79047050918204 & 5.708397656418773 \\
+7500 & 83.33333333333334 & 75.24979502186649 & 5.73895778208097 \\
+10000 & 82.17391304347827 & 76.0733932898126 & 4.777870742889238 \\
+Testing data set & 88.63636363636364 & 69.52680349695451 & 12.444007436477905 \\\hline
+\end{tabular}}
+\caption{Results for run 9}
+\end{table}
+=============================================================
+Run 10
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 75.73221757322176 & 68.04334210153607 & 5.443562646035445 \\
+5000 & 80.61674008810573 & 71.6160583339579 & 4.332885221436242 \\
+7500 & 79.82832618025752 & 73.46582465207717 & 3.4951476143568416 \\
+10000 & 81.97424892703863 & 74.15485542164745 & 3.6153055488376498 \\
+Testing data set & 79.06976744186046 & 63.693115831840394 & 10.251164892619785 \\\hline
+\end{tabular}}
+\caption{Results for run 10}
+\end{table}
+=============================================================
+Run 11
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 79.91266375545851 & 68.98290104899719 & 7.525586207386492 \\
+5000 & 81.30434782608695 & 73.25260593128388 & 6.4244493461834065 \\
+7500 & 82.91666666666667 & 74.29865611670931 & 5.90463201480028 \\
+10000 & 82.91666666666667 & 75.52270388068268 & 5.875913717968509 \\
+Testing data set & 82.5 & 69.0378622162729 & 8.317582595724726 \\\hline
+\end{tabular}}
+\caption{Results for run 11}
+\end{table}
+=============================================================
+Run 12
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 78.18930041152264 & 64.88500897339563 & 7.974431687968353 \\
+5000 & 82.71604938271605 & 67.91770713733885 & 7.951968978379757 \\
+7500 & 84.36213991769547 & 69.63809163486646 & 7.372386476474754 \\
+10000 & 81.89300411522635 & 69.71823538269034 & 6.808078088130581 \\
+Testing data set & 80.0 & 62.66149718720336 & 10.236893837364388 \\\hline
+\end{tabular}}
+\caption{Results for run 12}
+\end{table}
+=============================================================
+Run 13
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 80.48780487804879 & 74.95840102771128 & 4.0123752920670706 \\
+5000 & 83.68200836820083 & 77.43114360591025 & 3.208992185927187 \\
+7500 & 83.33333333333334 & 78.398280395383 & 2.875694987945716 \\
+10000 & 82.42677824267783 & 78.33274557024147 & 2.7349430082722503 \\
+Testing data set & 92.15686274509804 & 69.9397796829574 & 15.74662073301153 \\\hline
+\end{tabular}}
+\caption{Results for run 13}
+\end{table}
+=============================================================
+Run 14
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 81.58995815899581 & 73.38766777552658 & 6.8630058998795755 \\
+5000 & 83.47457627118644 & 76.92178376499852 & 4.638688402717262 \\
+7500 & 83.40425531914893 & 77.95292889357155 & 3.0080432418139758 \\
+10000 & 83.40425531914893 & 78.51372189762873 & 3.0791940336059644 \\
+Testing data set & 86.66666666666667 & 69.02015819943134 & 11.79419916660567 \\\hline
+\end{tabular}}
+\caption{Results for run 14}
+\end{table}
+=============================================================
+Run 15
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 81.9327731092437 & 73.58629183303779 & 4.786492863087127 \\
+5000 & 81.9327731092437 & 76.42636810331945 & 3.7851041678493536 \\
+7500 & 83.40425531914893 & 77.27682191506658 & 3.9104089655581733 \\
+10000 & 83.40425531914893 & 78.56397783541084 & 3.7955809109043286 \\
+Testing data set & 88.09523809523809 & 68.47776560495424 & 12.178854892251387 \\\hline
+\end{tabular}}
+\caption{Results for run 15}
+\end{table}
+=============================================================
+Run 16
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 74.47698744769873 & 65.28628718791843 & 7.480868330550923 \\
+5000 & 79.07949790794979 & 69.57859075133382 & 7.24632984802598 \\
+7500 & 79.49790794979079 & 72.56193457344658 & 5.207497167139457 \\
+10000 & 79.66804979253112 & 74.02194234781534 & 4.8255824489590395 \\
+Testing data set & 82.92682926829268 & 68.55090427610351 & 7.684495147315417 \\\hline
+\end{tabular}}
+\caption{Results for run 16}
+\end{table}
+=============================================================
+Run 17
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 80.0925925925926 & 69.36209723340365 & 7.064068246803205 \\
+5000 & 83.04347826086956 & 73.24647408780336 & 6.520037202492732 \\
+7500 & 82.00836820083683 & 74.15162725664783 & 6.085351184031574 \\
+10000 & 82.00836820083683 & 75.59469909731246 & 5.079419149810791 \\
+Testing data set & 87.5 & 69.319628192997 & 9.812615446934418 \\\hline
+\end{tabular}}
+\caption{Results for run 17}
+\end{table}
+=============================================================
+Run 18
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 79.66804979253112 & 65.06764123065959 & 6.04073404834524 \\
+5000 & 79.66804979253112 & 67.38130266716885 & 6.011620673041209 \\
+7500 & 79.66804979253112 & 68.89814775427796 & 6.091105513982386 \\
+10000 & 83.81742738589212 & 70.63546416075195 & 5.650355565179727 \\
+Testing data set & 83.72093023255815 & 64.37519464229041 & 7.4924097699462555 \\\hline
+\end{tabular}}
+\caption{Results for run 18}
+\end{table}
+
+=============================================================
+Overall Results
+
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Best Accuracy    & Average Accuracy & Standard deviation  \\ \hline
+2500 & 82.75862068965517 & 70.30935380948635 & 7.006758381733273 \\
+5000 & 83.68200836820083 & 73.01269103876174 & 6.5896137312319185 \\
+7500 & 84.36213991769547 & 74.03706270819902 & 6.092361854318682 \\
+10000 & 83.81742738589212 & 74.9284262261877 & 5.6655404532621505 \\
+Testing data set & 92.15686274509804 & 67.44631493375367 & 11.882909161743472 \\\hline
+\end{tabular}}
+\caption{Overall Results for Parameter Tuning}
+\end{table}
+
+Process finished with exit code 0

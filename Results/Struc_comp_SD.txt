@@ -1,0 +1,80 @@
+"C:\Program Files\Java\jdk-14.0.2\bin\java.exe" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.2.1\lib\idea_rt.jar=60878:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.2.1\bin" -Dfile.encoding=UTF-8 -classpath "C:\2020\COS 710\formatting\out\production\formatting" main
+=============================================================
+Run 1
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Highest SC & Lowest SC   & Average SC & Standard deviation  \\ \hline
+2500 & 25.0 & 11.0 & 17.47 & 3.71 \\
+5000 & 24.0 & 14.0 & 19.54 & 2.95 \\
+7500 & 23.0 & 14.0 & 20.27 & 2.73 \\
+10000 & 23.0 & 18.0 & 21.25 & 1.71 \\
+Testing data set & 27.0 & 5.0 & 17.96 & 5.4 \\\hline
+\end{tabular}}
+\caption{Structural Complexity Results for run 1 with ADFs}
+\end{table}
+=============================================================
+Run 2
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Highest SC & Lowest SC   & Average SC & Standard deviation  \\ \hline
+2500 & 30.0 & 11.0 & 19.67 & 4.6 \\
+5000 & 30.0 & 11.0 & 21.13 & 4.56 \\
+7500 & 34.0 & 11.0 & 22.05 & 5.14 \\
+10000 & 30.0 & 11.0 & 21.65 & 4.37 \\
+Testing data set & 37.0 & 2.0 & 16.8 & 8.68 \\\hline
+\end{tabular}}
+\caption{Structural Complexity Results for run 2 with ADFs}
+\end{table}
+=============================================================
+Run 3
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Highest SC & Lowest SC   & Average SC & Standard deviation  \\ \hline
+2500 & 27.0 & 8.0 & 18.68 & 4.84 \\
+5000 & 31.0 & 11.0 & 20.68 & 5.53 \\
+7500 & 34.0 & 11.0 & 22.52 & 5.87 \\
+10000 & 36.0 & 14.0 & 23.52 & 5.43 \\
+Testing data set & 33.0 & 2.0 & 18.36 & 8.0 \\\hline
+\end{tabular}}
+\caption{Structural Complexity Results for run 3 with ADFs}
+\end{table}
+=============================================================
+Run 4
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Highest SC & Lowest SC   & Average SC & Standard deviation  \\ \hline
+2500 & 27.0 & 11.0 & 18.76 & 4.59 \\
+5000 & 29.0 & 8.0 & 21.08 & 5.58 \\
+7500 & 32.0 & 8.0 & 22.28 & 5.92 \\
+10000 & 32.0 & 11.0 & 22.72 & 6.14 \\
+Testing data set & 32.0 & 2.0 & 16.72 & 8.24 \\\hline
+\end{tabular}}
+\caption{Structural Complexity Results for run 4 with ADFs}
+\end{table}
+
+=============================================================
+Overall Results
+
+
+\begin{table}[H]
+\resizebox{8.5cm}{!}{\begin{tabular}{llll}
+\hline
+Generation/data set   & Highest SC  & Lowest SC   & Average SC & Standard Deviation\\ \hline
+2500 & 30.0 & 8.0 & 18.74 & 4.57 \\
+5000 & 31.0 & 8.0 & 20.74 & 5.01 \\
+7500 & 34.0 & 8.0 & 22.02 & 5.42 \\
+10000 & 36.0 & 11.0 & 22.55 & 5.24 \\
+Testing data set & 37.0 & 2.0 & 17.46 & 7.72 \\\hline
+\end{tabular}}
+\caption{Overall Structural Complexity Results with ADFs}
+\end{table}
+
+Process finished with exit code 0

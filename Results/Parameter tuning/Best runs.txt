@@ -1,0 +1,17 @@
+4
+
+Testing data set & 90.69767441860465 & 73.20787488276456 & 10.859339034689539 
+
+7
+
+Testing data set & 90.47619047619048 & 68.782316645263 & 13.563650987372267
+
+13
+
+Testing data set & 92.15686274509804 & 69.9397796829574 & 15.74662073301153
+
+
+Run 4
+maxCalls = 3; 
+numFunctionTrees = 1 ; 
+Main only allowed function calls: OFF

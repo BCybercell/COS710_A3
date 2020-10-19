@@ -14,6 +14,10 @@ public class Tree {
         adjustedFitness = 0.0;
         normalizedFitness = 0.10; // set to 0.10 so that new children don't get replaced as easily
         hitsRatio = 0;
+        trainCE = 0;
+        testCE = 0;
+        avTrainCE = 0;
+
         root = new ArrayList<>();
 
         if (type == 0){
@@ -235,4 +239,5 @@ public class Tree {
     Toolkit tk;
     double rawFitness, standardizedFitness,adjustedFitness, normalizedFitness, accuracy;
     int hitsRatio, nodeNumberStorage, numCalls, maxCalls, numFunctionTrees;
+    long trainCE, testCE, avTrainCE;
 }

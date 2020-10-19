@@ -39,8 +39,8 @@ public class GeneticProgram extends Thread{
             ratio = 0.00; // Carried over from A2
             maxTreeDepth = 15; // Carried over from A2
             initialTreeDepth = 6; // Carried over from A2
-            maxCalls = 3; //TODO tune { 3, 5 , 10, 15, 30}
-            numFunctionTrees = 1 ; // TODO tune { 1, 3, 5 }
+            maxCalls = 3; //TODO tune { 3, 7, 15}
+            numFunctionTrees =1 ; // TODO tune { 1, 3, 5 }
             createInitialPopulation(ratio);
    //         System.out.println("Here");
 
@@ -62,6 +62,18 @@ public class GeneticProgram extends Thread{
             csvWriter.append("Hits ratio");
             csvWriter.append(",");
             csvWriter.append("Accuracy");
+            csvWriter.append(",");
+            csvWriter.append("Best Performer's Total CE");
+            csvWriter.append(",");
+            csvWriter.append("Average Total CE");
+            csvWriter.append(",");
+            csvWriter.append("Best Performer's Average CE");
+            csvWriter.append(",");
+            csvWriter.append("Average Average CE");
+            csvWriter.append(",");
+            csvWriter.append("Best Performer's SC");
+            csvWriter.append(",");
+            csvWriter.append("Average SC");
             csvWriter.append("\n");
 
 
@@ -75,14 +87,15 @@ public class GeneticProgram extends Thread{
             int numGen = 10000;
             for (int i = 0; i < numGen; i++) {
 
-//                if (i % 200 == 0 && i!=0) { // Removes redundant 0 case
-                if (i % 50 == 0 && i!=0) { // If isMain is off. Slower to run code
+                if (i % 200 == 0 && i!=0) { // Removes redundant 0 case
+//                if (i % 50 == 0 && i!=0) { // If isMain is off. Slower to run code
                     System.out.println("Gen " + i + " best accuracy: " + tmpAccForPrint);
                 }
                 double sumAdjFit = 0.0;
                // int treeCount = 0;
                 for (Tree t : population
                 ) {
+
                    // int Debugp = 0;
                     //System.out.println("Tree: " + treeCount++);
                     int correct = 0;
@@ -90,6 +103,7 @@ public class GeneticProgram extends Thread{
                     double total = 0.0;
                     double rawFitness = 0.0;
                     //int trainCount = 0;
+                    long startTimeTrainComplexity = System.nanoTime();
                     for (String[] obj : train
                     ) {
 //                        if (treeCount==10){
@@ -113,6 +127,9 @@ public class GeneticProgram extends Thread{
                         total++;
 
                     }
+                    long endTimeTrainComplexity = System.nanoTime();
+                    t.trainCE = endTimeTrainComplexity - startTimeTrainComplexity;
+                    t.avTrainCE =  t.trainCE / train.size();
                     //System.out.println("Failures: " + failure);
                     double acc = correct / total;
                     rawFitness = total - correct;
@@ -125,18 +142,27 @@ public class GeneticProgram extends Thread{
                     sumAdjFit += adjustedFitness;
                     t.hitsRatio = correct;
                     t.accuracy = acc;
-                    if (correct >= (total - (total * 0.15))) { // TODO check in the next 100 runs (Tune between 80,85,90,95)
+                    if (correct >= (total - (total * 0.05))) { // TODO check in the next 100 runs (Tune between 80,85,90,95)
                         System.out.println("Early stop");
                         numGen = -1;
                         break;
                     }
                 }
                 //System.out.println("Here 0");
+                long averageComplexity = 0;
+                long avAvCE = 0;
+                int averageSC = 0;
                 for (Tree t : population
                 ) {
+                    averageComplexity += t.trainCE;
+                    avAvCE += t.avTrainCE;
+                    averageSC += t.getNumNodes();
                     t.normalizedFitness = t.adjustedFitness / sumAdjFit;
                 }
                 //System.out.println("Here 1");
+                averageComplexity = averageComplexity / populationSize;
+                avAvCE = avAvCE / populationSize;
+                averageSC = averageSC / populationSize;
                 Tree fittest = getFittest();
                 if (fittest != null) {
                     csvWriter.append(Integer.toString(i)); // Gen
@@ -151,6 +177,18 @@ public class GeneticProgram extends Thread{
 
                     csvWriter.append(",");
                     csvWriter.append(Double.toString(fittest.accuracy));
+                    csvWriter.append(",");
+                    csvWriter.append(Double.toString(fittest.trainCE));
+                    csvWriter.append(",");
+                    csvWriter.append(Double.toString(averageComplexity));
+                    csvWriter.append(",");
+                    csvWriter.append(Double.toString(fittest.avTrainCE));
+                    csvWriter.append(",");
+                    csvWriter.append(Double.toString(avAvCE));
+                    csvWriter.append(",");
+                    csvWriter.append(Double.toString(fittest.getNumNodes()));
+                    csvWriter.append(",");
+                    csvWriter.append(Double.toString(averageSC));
                     csvWriter.append("\n");
 
                     //System.out.println("Gen " + i);
@@ -201,6 +239,7 @@ public class GeneticProgram extends Thread{
                 int correct = 0;
                 double total = 0.0;
                 double rawFitness = 0.0;
+                long startTimeTestComplexity = System.nanoTime();
                 for (String[] obj : test
                 ) {
 
@@ -215,6 +254,9 @@ public class GeneticProgram extends Thread{
                     total++;
 
                 }
+                long endTimeTestComplexity = System.nanoTime();
+                t.trainCE = endTimeTestComplexity - startTimeTestComplexity;
+                t.avTrainCE =  t.trainCE / test.size();
                 double acc = correct / total;
                 rawFitness = total - correct;
 
@@ -230,14 +272,24 @@ public class GeneticProgram extends Thread{
                 t.hitsRatio = correct;
                 t.accuracy = acc;
                 if (correct >= (total - (total * 0.15))) { // This is redundant code. From original parameter tuning
-                    System.out.println("Early stop");
+                    System.out.println("Early stop"); // Whoops. Should remove or change to "Wow"
                     break;
                 }
             }
+            long averageComplexity = 0;
+            long avAvCE = 0;
+            int averageSC = 0;
             for (Tree t : population
             ) {
+                averageComplexity += t.trainCE;
+                avAvCE += t.avTrainCE;
+                averageSC += t.getNumNodes();
                 t.normalizedFitness = t.adjustedFitness / sumAdjFit;
             }
+            //System.out.println("Here 1");
+            averageComplexity = averageComplexity / populationSize;
+            avAvCE = avAvCE / populationSize;
+            averageSC = averageSC / populationSize;
             Tree fittest = getFittest();
             if (fittest != null) {
                 csvWriter.append("Final"); // Gen
@@ -252,6 +304,18 @@ public class GeneticProgram extends Thread{
 
                 csvWriter.append(",");
                 csvWriter.append(Double.toString(fittest.accuracy));
+                csvWriter.append(",");
+                csvWriter.append(Double.toString(fittest.trainCE));
+                csvWriter.append(",");
+                csvWriter.append(Double.toString(averageComplexity));
+                csvWriter.append(",");
+                csvWriter.append(Double.toString(fittest.avTrainCE));
+                csvWriter.append(",");
+                csvWriter.append(Double.toString(avAvCE));
+                csvWriter.append(",");
+                csvWriter.append(Double.toString(fittest.getNumNodes()));
+                csvWriter.append(",");
+                csvWriter.append(Double.toString(averageSC));
                 csvWriter.append("\n");
                 long duration = System.nanoTime() - startTime;
                 csvWriter.append(Long.toString(duration));

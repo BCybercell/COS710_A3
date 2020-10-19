@@ -338,9 +338,7 @@ public class FunctionNode extends Node {
                                 case "F" -> numberDecision[3] = numberDecision[3] + 1;
 
                             }
-                            if (numCalls>2){ //FORCE THIS TO QUIT. TAKES TOO LONG IN LOOP
-                                return "F";
-                            }
+
                             //ADDED for speedup of code
                             if (numberDecision[3] > 11){
                                 return "F";
@@ -353,6 +351,9 @@ public class FunctionNode extends Node {
                             }
                             if (numberDecision[0] > 11){
                                 return "I";
+                            }
+                            if (numCalls>=1){ //FORCE THIS TO QUIT. TAKES TOO LONG IN LOOP
+                                return "F";
                             }
 
                         }

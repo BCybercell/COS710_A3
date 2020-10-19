@@ -1,0 +1,3 @@
+maxCalls = 15; //TODO tune { 3, 7, 15}
+numFunctionTrees = 5 ; // TODO tune { 1, 3, 5 }
+Main only allowed function: OFF
